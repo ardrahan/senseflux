@@ -1,5 +1,5 @@
 import click
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, Response
 from influxdb import InfluxDBClient
 from waitress import serve
 
@@ -14,7 +14,7 @@ log.addHandler(console)
 log.setLevel(logging.DEBUG)
 
 
-def create_app(influx_client: InfluxDBClient, test_config=None):
+def create_app(influxdb_client: InfluxDBClient, influxdb_database: str, api_key: str, test_config=None):
     # create and configure the app
     app = Flask(__name__, instance_relative_config=True)
 
@@ -45,6 +45,10 @@ def create_app(influx_client: InfluxDBClient, test_config=None):
     def process_vegjson():
         data = request.json
         channel = data['channel_id']
+        req_key = data['write_api_key']
+        if api_key and api_key != req_key:
+            return Response(status=401)
+
         lines = []
         readings = fields_to_values(data['updates'])
         # log.debug(f'Converted Readings {readings}')
@@ -55,7 +59,7 @@ def create_app(influx_client: InfluxDBClient, test_config=None):
             log.debug(f'Line:{msg}')
             lines.append(msg)
         log.info('Sending Data to Influx')
-        result = influx_client.write(lines, {'db': 'veghub'}, 204, 'line')
+        result = influxdb_client.write(lines, {'db': influxdb_database }, 204, 'line')
         log.info(f'Influx Result: {result}')
         return "Success"
 
@@ -65,20 +69,20 @@ def create_app(influx_client: InfluxDBClient, test_config=None):
 @click.command()
 @click.option('--port', envvar='SF_PORT', default=8003, help='Web Service Port')
 @click.option('--api-key', envvar='SF_API_KEY', default=None)
-@click.option('--influx-host', envvar='INFLUX_HOST', default='localhost', help='Influx Server hostname')
-@click.option('--influx-port', envvar='INFLUX_PORT', default=8086, help='Influx Server port')
-@click.option('--influx-database', envvar='INFLUX_DATABASE', default='senseflux')
-@click.option('--influx-username', envvar='INFLUX_USERNAME', default=None)
-@click.option('--influx-password', envvar='INFLUX_PASSWORD', default=None)
-def main(port, api_key, influx_host, influx_port, influx_database, influx_username, influx_password):
-    if influx_username and influx_password:
-        influx_client = InfluxDBClient(host=influx_host, port=influx_port,
-                                       username=influx_username, password=influx_password)
+@click.option('--influxdb-host', envvar='INFLUXDB_HOST', default='localhost', help='Influx Server hostname')
+@click.option('--influxdb-port', envvar='INFLUXDB_PORT', default=8086, help='Influx Server port')
+@click.option('--influxdb-database', envvar='INFLUXDB_DATABASE', default='senseflux')
+@click.option('--influxdb-username', envvar='INFLUXDB_USERNAME', default=None)
+@click.option('--influxdb-password', envvar='INFLUXDB_PASSWORD', default=None)
+def main(port, api_key, influxdb_host, influxdb_port, influxdb_database, influxdb_username, influxdb_password):
+    if influxdb_username and influxdb_password:
+        influxdb_client = InfluxDBClient(host=influxdb_host, port=influxdb_port,
+                                         username=influxdb_username, password=influxdb_password)
     else:
-        influx_client = InfluxDBClient(host=influx_host, port=influx_port)
-    influx_client.create_database(influx_database)
-    influx_client.switch_database(influx_database)
-    app = create_app(influx_client)
+        influxdb_client = InfluxDBClient(host=influxdb_host, port=influxdb_port)
+    influxdb_client.create_database(influxdb_database)
+    influxdb_client.switch_database(influxdb_database)
+    app = create_app(influxdb_client, influxdb_database, api_key)
     serve(app, listen=f'*:{port}')
     # app.run(host='0.0.0.0', port=port)
 
