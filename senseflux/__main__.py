@@ -50,16 +50,16 @@ def create_app(influxdb_client: InfluxDBClient, influxdb_database: str, api_key:
             return Response(status=401)
 
         lines = []
+        log.info(f"Raw updates {data['updates']}")
         readings = fields_to_values(data['updates'])
-        # log.debug(f'Converted Readings {readings}')
         for r in readings:
-            fields = ','.join([f'{k}="{v}"' for k, v in r.items() if k != 'created_at'])
+            fields = ','.join([f'{k}={v}' for k, v in r.items() if k != 'created_at'])
             timestamp = int(veghub_time_to_timestamp(r['created_at']) * 1e9)
             msg = f'{channel} {fields} {timestamp}'
             log.debug(f'Line:{msg}')
             lines.append(msg)
         log.info('Sending Data to Influx')
-        result = influxdb_client.write(lines, {'db': influxdb_database }, 204, 'line')
+        result = influxdb_client.write(lines, {'db': influxdb_database}, 204, 'line')
         log.info(f'Influx Result: {result}')
         return "Success"
 
@@ -84,7 +84,6 @@ def main(port, api_key, influxdb_host, influxdb_port, influxdb_database, influxd
     influxdb_client.switch_database(influxdb_database)
     app = create_app(influxdb_client, influxdb_database, api_key)
     serve(app, listen=f'*:{port}')
-    # app.run(host='0.0.0.0', port=port)
 
 
 if __name__ == '__main__':
