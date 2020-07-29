@@ -1,0 +1,217 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "https://www.vegetronix.com/unofficial.json",
+    "type": "object",
+    "title": "VegeTronix Unofficial JSON Schema",
+    "description": "Reverse Engineered Schema from Vegtronix VegeHub Wi-Fi by BattlePenguin.com",
+    "default": {},
+    "examples": [
+        {
+            "write_api_key": "TESTKey",
+            "channel_id": "TestChannel",
+            "updates": [
+                {
+                    "created_at": "2020-07-12 15:00:37",
+                    "field1": 1.827,
+                    "field2": 1.541,
+                    "field3": 0.077,
+                    "field4": 1.905
+                },
+                {
+                    "created_at": "2020-07-12 15:05:37",
+                    "field1": 1.826,
+                    "field2": 1.542,
+                    "field3": 0.08,
+                    "field4": 1.824
+                }
+            ]
+        }
+    ],
+    "required": [
+        "write_api_key",
+        "channel_id",
+        "updates"
+    ],
+    "properties": {
+        "write_api_key": {
+            "$id": "#/properties/write_api_key",
+            "type": "string",
+            "title": "VegeHub API Key",
+            "description": "Plain text API Key",
+            "default": "",
+            "examples": [
+                "TESTKey"
+            ]
+        },
+        "channel_id": {
+            "$id": "#/properties/channel_id",
+            "type": "string",
+            "title": "Self reported Channel ID from VegeHub",
+            "description": "VegeHub Channel ID",
+            "default": "",
+            "examples": [
+                "TestChn"
+            ]
+        },
+        "updates": {
+            "$id": "#/properties/updates",
+            "type": "array",
+            "title": "Array of sensor readings",
+            "description": "Updates including time and sensor readings",
+            "default": [],
+            "examples": [
+                [
+                    {
+                        "created_at": "2020-07-12 15:00:37",
+                        "field1": 1.827,
+                        "field2": 1.541,
+                        "field3": 0.077,
+                        "field4": 1.905
+                    },
+                    {
+                        "created_at": "2020-07-12 15:05:37",
+                        "field1": 1.826,
+                        "field2": 1.542,
+                        "field3": 0.08,
+                        "field4": 1.824
+                    }
+                ]
+            ],
+            "additionalItems": true,
+            "items": {
+                "$id": "#/properties/updates/items",
+                "anyOf": [
+                    {
+                        "$id": "#/properties/updates/items/anyOf/0",
+                        "type": "object",
+                        "title": "The first anyOf schema",
+                        "description": "An explanation about the purpose of this instance.",
+                        "default": {},
+                        "examples": [
+                            {
+                                "created_at": "2020-07-12 15:00:37",
+                                "field1": 1.827,
+                                "field2": 1.541,
+                                "field3": 0.077,
+                                "field4": 1.905
+                            }
+                        ],
+                        "required": [
+                            "created_at",
+                            "field1",
+                            "field2",
+                            "field3",
+                            "field4"
+                        ],
+                        "properties": {
+                            "created_at": {
+                                "$id": "#/properties/updates/items/anyOf/0/properties/created_at",
+                                "type": "string",
+                                "title": "The created_at schema",
+                                "description": "An explanation about the purpose of this instance.",
+                                "default": "",
+                                "examples": [
+                                    "2020-07-12 15:00:37"
+                                ]
+                            },
+                            "field1": {
+                                "$id": "#/properties/updates/items/anyOf/0/properties/field1",
+                                "type": "number",
+                                "title": "The field1 schema",
+                                "description": "An explanation about the purpose of this instance.",
+                                "default": 0.0,
+                                "examples": [
+                                    1.827
+                                ]
+                            },
+                            "field2": {
+                                "$id": "#/properties/updates/items/anyOf/0/properties/field2",
+                                "type": "number",
+                                "title": "The field2 schema",
+                                "description": "An explanation about the purpose of this instance.",
+                                "default": 0.0,
+                                "examples": [
+                                    1.541
+                                ]
+                            },
+                            "field3": {
+                                "$id": "#/properties/updates/items/anyOf/0/properties/field3",
+                                "type": "number",
+                                "title": "The field3 schema",
+                                "description": "An explanation about the purpose of this instance.",
+                                "default": 0.0,
+                                "examples": [
+                                    0.077
+                                ]
+                            },
+                            "field4": {
+                                "$id": "#/properties/updates/items/anyOf/0/properties/field4",
+                                "type": "number",
+                                "title": "The field4 schema",
+                                "description": "An explanation about the purpose of this instance.",
+                                "default": 0.0,
+                                "examples": [
+                                    1.905
+                                ]
+                            }
+                        },
+                        "additionalProperties": true
+                    },
+                    {
+                        "$id": "#/properties/updates/items/anyOf/1",
+                        "type": "object",
+                        "title": "The second anyOf schema",
+                        "description": "An explanation about the purpose of this instance.",
+                        "default": {},
+                        "examples": [
+                            {
+                                "created_at": "2020-07-12 15:15:37",
+                                "field1": 1.827,
+                                "field2": 1.544
+                            }
+                        ],
+                        "required": [
+                            "created_at",
+                            "field1",
+                            "field2"
+                        ],
+                        "properties": {
+                            "created_at": {
+                                "$id": "#/properties/updates/items/anyOf/1/properties/created_at",
+                                "type": "string",
+                                "title": "The created_at schema",
+                                "description": "An explanation about the purpose of this instance.",
+                                "default": "",
+                                "examples": [
+                                    "2020-07-12 15:15:37"
+                                ]
+                            },
+                            "field1": {
+                                "$id": "#/properties/updates/items/anyOf/1/properties/field1",
+                                "type": "number",
+                                "title": "The field1 schema",
+                                "description": "An explanation about the purpose of this instance.",
+                                "default": 0.0,
+                                "examples": [
+                                    1.827
+                                ]
+                            },
+                            "field2": {
+                                "$id": "#/properties/updates/items/anyOf/1/properties/field2",
+                                "type": "number",
+                                "title": "The field2 schema",
+                                "description": "An explanation about the purpose of this instance.",
+                                "default": 0.0,
+                                "examples": [
+                                    1.544
+                                ]
+                            }
+                        },
+                        "additionalProperties": true
+                    }
+                ]
+            }
+        }
+    },
+    "additionalProperties": true
+}

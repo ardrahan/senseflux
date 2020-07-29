@@ -1,5 +1,5 @@
 import unittest
-from senseflux.sensors import *
+from senseflux.sensors import voltage_to_temperature, three_volt_range
 
 
 class Util(unittest.TestCase):

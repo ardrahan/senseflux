@@ -1,0 +1,16 @@
+image: "python:3.8"
+stages:
+  - test
+#  - deploy
+
+before_script:
+  - pip3 install poetry
+  - pip3 install pycodestyle flake8
+
+test:
+  stage: test
+  script:
+    - poetry install
+    - poetry run pytest
+    - flake8 --ignore=E501,W503 .
+    - pycodestyle --ignore=E501,W503 .
