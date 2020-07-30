@@ -16,10 +16,13 @@ test:
 deploy:
   stage: deploy
   image: docker:19
-  rules:
-    - if: '$CI_COMMIT_TAG != null'
-      when: always
+  services:
+    - docker:19-dind
+#  rules:
+#    - if: '$CI_COMMIT_TAG != null'
+#      when: always
   script:
-      - docker build --tag battlepenguin/senseflux:$CI_COMMIT_TAG .
+#      - docker build --tag battlepenguin/senseflux:$CI_COMMIT_TAG .
+      - docker build --tag battlepenguin/senseflux:test .
       - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
-      - docker push battlepenguin/senseflux:$CI_COMMIT_TAG
+#      - docker push battlepenguin/senseflux:$CI_COMMIT_TAG
