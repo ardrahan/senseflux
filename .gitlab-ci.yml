@@ -1,16 +1,26 @@
-image: "python:3.8"
 stages:
   - test
-#  - deploy
-
-before_script:
-  - pip3 install poetry
-  - pip3 install pycodestyle flake8
+  - deploy
 
 test:
   stage: test
+  image: python:3.8
   script:
+    - pip3 install poetry
+    - pip3 install pycodestyle flake8
     - poetry install
     - poetry run pytest
     - flake8 --ignore=E501,W503 .
     - pycodestyle --ignore=E501,W503 .
+
+deploy:
+  stage: deploy
+  image: docker:19
+  only:
+    refs:
+      - tags
+      - master
+  script:
+      - docker build . --tag battlepenguin/senseflux:$CI_COMMIT_TAG .
+      - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
+      - docker push battlepenguin/senseflux:$CI_COMMIT_TAG
