@@ -1,3 +1,5 @@
+from typing import Dict
+
 import jsonschema
 from flask import Flask, request, Response
 from influxdb import InfluxDBClient
@@ -14,11 +16,12 @@ def load_schema():
     return json.loads(pkg_resources.resource_string(resource_package, resource_path))
 
 
-def create_app(influxdb_client: InfluxDBClient, influxdb_database: str, api_key: str):
+def create_app(influxdb_client: InfluxDBClient, influxdb_database: str, api_key: str, field_map: Dict[str, str]):
     # create and configure the app
     from senseflux.__main__ import log
     vegehub_schema = load_schema()
     app = Flask(__name__, instance_relative_config=True)
+    log.debug(f"Field Map {field_map}")
 
     @app.route('/')
     def default():
@@ -43,7 +46,7 @@ def create_app(influxdb_client: InfluxDBClient, influxdb_database: str, api_key:
 
         lines = []
         log.info(f"Raw updates {data['updates']}")
-        readings = fields_to_values(data['updates'])
+        readings = fields_to_values(data['updates'], field_map)
         for r in readings:
             fields = ','.join([f'{k}={v}' for k, v in r.items() if k != 'created_at'])
             timestamp = int(veghub_time_to_timestamp(r['created_at']) * 1e9)

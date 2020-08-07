@@ -1,3 +1,5 @@
+from typing import Dict
+import os
 
 
 def three_volt_range(voltage: float) -> int:
@@ -14,15 +16,14 @@ def voltage_to_temperature(voltage: float, units='C'):
         raise AttributeError('Units must be either C or F')
 
 
-def fields_to_values(updates: []) -> []:
+def fields_to_values(updates: [], field_map: Dict[str, str]) -> []:
     ret = []
     for update in updates:
         ret_u = {'created_at': update['created_at']}
         # fiter out fields
         fields = {k: v for k, v in update.items() if 'field' in k}
         for k, v in fields.items():
-            f = field_lookup(k)
-            adjval = None
+            f = field_map[k]
 
             if f == 'SoilTemperature':
                 adjval = voltage_to_temperature(v)
@@ -36,14 +37,13 @@ def fields_to_values(updates: []) -> []:
     return ret
 
 
-def field_lookup(field: str) -> str:
-    if field == 'field1':
-        return 'Humidity'
-    if field == 'field2':
-        return 'SoilTemperature'
-    if field == 'field3':
-        return 'SoilMoisture'
-    if field == 'field4':
-        return 'Darkness'
-    if field == 'field5':
-        return 'Battery'
+def field_lookup(defaults: Dict[str, str]) -> Dict[str, str]:
+    fields = {}
+    for i in range(1, 6):
+        ef = f'FIELD{i}'
+        f_name = f'field{i}'
+        if ef in os.environ:
+            fields[f_name] = os.environ[ef]
+        else:
+            fields[f_name] = defaults[f_name]
+    return fields

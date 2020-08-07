@@ -26,7 +26,9 @@ class BasicTests(unittest.TestCase):
 
     def setUp(self):
         self.influx_mock = MockInflux()
-        app = create_app(self.influx_mock, 'textflux', 'TESTKey')
+        app = create_app(self.influx_mock, 'textflux', 'TESTKey', {'field1': 'Humidity', 'field2': 'SoilTemperature',
+                                                                   'field3': 'SoilMoisture', 'field4': 'Darkness',
+                                                                   'field5': 'Battery'})
         self.app = app.test_client()
 
     def test_index(self):

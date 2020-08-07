@@ -2,7 +2,7 @@ import unittest
 from senseflux.sensors import voltage_to_temperature, three_volt_range
 
 
-class Util(unittest.TestCase):
+class SensorTests(unittest.TestCase):
 
     def test_voltage_to_temp(self):
         self.assertEqual(voltage_to_temperature(0.0), -40)
