@@ -2,13 +2,13 @@
 
 SenseFlux is web services designed to accept data from a [VegeHub](https://www.vegetronix.com/Products/VG-HUB/) Wi-Fi sensor box and ship that data to InfluxDB.
 
-Full Blog Post: https://battlepenguin.com/tech/balcony-plants-with-soil-sensors-and-senseflux/
+Full Blog Post: https://battlepenguin.com/tech/plants-and-soil-sensors/
 
 ## Configuration
 
 You may use command line arguments or environment variables.
 
-| Command Line Option | Environment Variable | Description | Default |
+| Command Line Option | Environment Variable | Default | Description |
 |-|-|-|-|
 | --port | SF_PORT | 8003 | Web Service Port |
 | --api-key | SF_API_KEY | |
