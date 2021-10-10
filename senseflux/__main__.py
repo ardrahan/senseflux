@@ -26,7 +26,7 @@ log.setLevel(logging.DEBUG)
 @click.option('--field5', envvar='FIELD5', default='Voltage')
 def main(port, api_key, influxdb_url, influxdb_org, influxdb_database, influxdb_token,
          field1, field2, field3, field4, field5):
-    influxdb_client = InfluxDBClient(url=influxdb_host, org=influxdb_org,
+    influxdb_client = InfluxDBClient(url=influxdb_url, org=influxdb_org,
                                      token=influxdb_token, debug=False)
   
     log.info(f'Influx URL: {influxdb_url}')
