@@ -38,6 +38,7 @@ def create_app(influxdb_client: InfluxDBClient, influxdb_database: str, api_key:
         try:
             validate(instance=data, schema=vegehub_schema)
         except jsonschema.exceptions.ValidationError as err:
+            log.warning(f'Invalid VegeHub JSON: {err.message}')
             return Response(f'Invalid VegeHub JSON: {err.message}', status=400)
 
         channel = data['channel_id']
