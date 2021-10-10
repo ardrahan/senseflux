@@ -17,5 +17,5 @@ WORKDIR /app
 RUN poetry update 
 RUN poetry install
 
-CMD tail -f /dev/null
-#CMD ["poetry", "run", "python", "-m", "senseflux.__main__"]
+#CMD tail -f /dev/null
+CMD ["poetry", "run", "python", "-m", "senseflux.__main__"]
