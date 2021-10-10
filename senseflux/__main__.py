@@ -29,7 +29,7 @@ def main(port, api_key, influxdb_url, influxdb_org, influxdb_database, influxdb_
     influxdb_client = InfluxDBClient(url=influxdb_host, org=influxdb_org,
                                      token=influxdb_token, debug=False)
   
-    log.info(f'Influx URL: {influxdb_url')
+    log.info(f'Influx URL: {influxdb_url}')
     log.info(f'Influx Org: {influxdb_org}')
 
     # Command line parameters override
