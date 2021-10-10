@@ -34,6 +34,7 @@ def create_app(influxdb_client: InfluxDBClient, influxdb_database: str, api_key:
         log.info('Veghub Request')
 
         data = request.json
+        log.info('Data',request.json)
         try:
             validate(instance=data, schema=vegehub_schema)
         except jsonschema.exceptions.ValidationError as err:
