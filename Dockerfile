@@ -15,4 +15,5 @@ COPY senseflux /app/senseflux
 WORKDIR /app
 RUN poetry install
 
-CMD ["poetry", "run", "python", "-m", "senseflux.__main__"]
+CMD tail -f /dev/null
+#CMD ["poetry", "run", "python", "-m", "senseflux.__main__"]
