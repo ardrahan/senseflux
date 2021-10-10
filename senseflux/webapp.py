@@ -41,8 +41,8 @@ def create_app(influxdb_client: InfluxDBClient, influxdb_database: str, api_key:
             log.warning(f'Invalid VegeHub JSON: {err.message}')
             return Response(f'Invalid VegeHub JSON: {err.message}', status=400)
 
-        channel = data['channel_id']
-        req_key = data['write_api_key']
+        channel = data['channel_id'] if data['channel_id'] is not None else 'default'
+        req_key = data['key']
         if api_key and api_key != req_key:
             log.warning('Invalid API Key')
             return Response(status=401)
