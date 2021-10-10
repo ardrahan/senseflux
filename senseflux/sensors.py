@@ -2,9 +2,9 @@ from typing import Dict
 import os
 
 
-def three_volt_range(voltage: float) -> int:
+def three_volt_range(voltage: float) -> float:
     """Returns (int) 0 - 100 based on ratio from 0.0 to 3.0 volts"""
-    return int((voltage / 3.0) * 100)
+    return float((voltage / 3.0) * 100)
 
 
 def voltage_to_temperature(voltage: float, units='C'):
@@ -29,10 +29,9 @@ def fields_to_values(updates: [], field_map: Dict[str, str]) -> []:
                 adjval = voltage_to_temperature(v)
             elif f == 'Battery':
                 adjval = v
-            elif f == 'Voltage':
-                adjval = three_volt_range(v)
             else:
-                adjval = v
+                adjval = three_volt_range(v)
+
 
             ret_u[f] = adjval
         ret.append(ret_u)
