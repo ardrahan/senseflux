@@ -2,7 +2,8 @@ from typing import Dict
 
 import jsonschema
 from flask import Flask, request, Response
-from influxdb import InfluxDBClient
+from influxdb_client import WritePrecision, InfluxDBClient, Point
+from influxdb_client.client.write_api import SYNCHRONOUS
 from senseflux.sensors import fields_to_values
 from senseflux.util import veghub_time_to_timestamp
 from jsonschema import validate
@@ -54,7 +55,8 @@ def create_app(influxdb_client: InfluxDBClient, influxdb_database: str, api_key:
             log.debug(f'Line:{msg}')
             lines.append(msg)
         log.info('Sending Data to Influx')
-        result = influxdb_client.write(lines, {'db': influxdb_database}, 204, 'line')
+        write_api = influxdb_client.write_api(write_options=SYNCHRONOUS)
+        write_api.write(bucket=influxdb_database, record=lines)
         log.info(f'Influx Result: {result}')
         return "Success"
 
