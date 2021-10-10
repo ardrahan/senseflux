@@ -31,10 +31,10 @@ def create_app(influxdb_client: InfluxDBClient, influxdb_database: str, api_key:
 
     @app.route('/create/vghub', methods=['POST'])
     def process_vegjson():
-        log.info('Veghub Request',request)
+        log.info(f'Veghub Request {request}')
 
         data = request.json
-        log.info('Data',request.data)
+        log.info(f'Data {request.data}')
         try:
             validate(instance=data, schema=vegehub_schema)
         except jsonschema.exceptions.ValidationError as err:
