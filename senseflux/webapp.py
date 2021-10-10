@@ -56,7 +56,7 @@ def create_app(influxdb_client: InfluxDBClient, influxdb_database: str, api_key:
             lines.append(msg)
         log.info('Sending Data to Influx')
         write_api = influxdb_client.write_api(write_options=SYNCHRONOUS)
-        write_api.write(bucket=influxdb_database, record=lines)
+        result = write_api.write(bucket=influxdb_database, record=lines)
         log.info(f'Influx Result: {result}')
         return "Success"
 
