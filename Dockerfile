@@ -10,7 +10,8 @@ RUN pip install poetry
 RUN adduser --system --shell /bin/false --home /app app
 
 USER app
-COPY poetry.lock pyproject.toml /app/
+#COPY poetry.lock /app/
+COPY pyproject.toml /app/
 COPY senseflux /app/senseflux
 WORKDIR /app
 RUN poetry update 
