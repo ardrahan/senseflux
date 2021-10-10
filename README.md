@@ -17,12 +17,11 @@ You may use command line arguments or environment variables.
 |-|-|-|-|
 | --port | SF_PORT | 8003 | Web Service Port |
 | --api-key | SF_API_KEY | |
-| --influxdb-host | INFLUXDB_HOST | localhost | Influx Server hostname |
-| --influxdb-port | INFLUXDB_PORT | 8086 | Influx Server port |
-| --influxdb-database | INFLUXDB_DATABASE | senseflux |
-| --influxdb-username | INFLUXDB_USERNAME | |
-| --influxdb-password | INFLUXDB_PASSWORD | |
-| --field1 | FIELD1 | Voltage |
+| --influxdb-host | INFLUXDB_URL | http://localhost:8086 | Influx Server URL |
+| --influxdb-port | INFLUXDB_ORG | Senseflux | Influx Org |
+| --influxdb-database | INFLUXDB_DATABASE | senseflux | Influx Bucket |
+| --influxdb-username | INFLUXDB_TOKEN | |
+| --field1 | FIELD1 | SoilMoisture |
 | --field2 | FIELD2 | Voltage |
 | --field3 | FIELD3 | Voltage |
 | --field4 | FIELD4 | Voltage |
