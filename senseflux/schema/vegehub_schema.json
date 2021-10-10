@@ -207,6 +207,46 @@
                             }
                         },
                         "additionalProperties": true
+                    },
+                    {
+                        "$id": "#/properties/updates/items/anyOf/2",
+                        "type": "object",
+                        "title": "The third anyOf schema",
+                        "description": "An explanation about the purpose of this instance.",
+                        "default": {},
+                        "examples": [
+                            {
+                                "created_at": "2020-07-12 15:15:37",
+                                "field1": 1.827,
+                            }
+                        ],
+                        "required": [
+                            "created_at",
+                            "field1",
+                        ],
+                        "properties": {
+                            "created_at": {
+                                "$id": "#/properties/updates/items/anyOf/1/properties/created_at",
+                                "type": "string",
+                                "title": "The created_at schema",
+                                "description": "An explanation about the purpose of this instance.",
+                                "default": "",
+                                "examples": [
+                                    "2020-07-12 15:15:37"
+                                ]
+                            },
+                            "field1": {
+                                "$id": "#/properties/updates/items/anyOf/1/properties/field1",
+                                "type": "number",
+                                "title": "The field1 schema",
+                                "description": "An explanation about the purpose of this instance.",
+                                "default": 0.0,
+                                "examples": [
+                                    1.827
+                                ]
+                            },
+                        },
+                        "additionalProperties": true
                     }
                 ]
             }
