@@ -7,7 +7,7 @@
     "default": {},
     "examples": [
         {
-            "write_api_key": "TESTKey",
+            "key": "TESTKey",
             "channel_id": "TestChannel",
             "updates": [
                 {
@@ -28,13 +28,13 @@
         }
     ],
     "required": [
-        "write_api_key",
+        "key",
         "channel_id",
         "updates"
     ],
     "properties": {
-        "write_api_key": {
-            "$id": "#/properties/write_api_key",
+        "key": {
+            "$id": "#/properties/key",
             "type": "string",
             "title": "VegeHub API Key",
             "description": "Plain text API Key",
