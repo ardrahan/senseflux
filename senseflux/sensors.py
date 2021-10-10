@@ -29,8 +29,10 @@ def fields_to_values(updates: [], field_map: Dict[str, str]) -> []:
                 adjval = voltage_to_temperature(v)
             elif f == 'Battery':
                 adjval = v
-            else:
+            elif f == 'Voltage':
                 adjval = three_volt_range(v)
+            else:
+                adjval = v
 
             ret_u[f] = adjval
         ret.append(ret_u)
