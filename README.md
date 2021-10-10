@@ -5,9 +5,9 @@ SenseFlux is web services designed to accept data from a [VegeHub](https://www.v
 Full Blog Post: https://battlepenguin.com/tech/plants-and-soil-sensors/
 
 2021/10/10 by ardrahan
--updated to use influxdb 2
--updated vegehub json to work with what my vegehub sent
--updated soil moisture to use piecewise linear curve approximation
+* updated to use influxdb 2
+* updated vegehub json to work with what my vegehub sent
+* updated soil moisture to use piecewise linear curve approximation
 
 ## Configuration
 
