@@ -13,6 +13,7 @@ USER app
 COPY poetry.lock pyproject.toml /app/
 COPY senseflux /app/senseflux
 WORKDIR /app
+RUN poetry update 
 RUN poetry install
 
 CMD tail -f /dev/null
