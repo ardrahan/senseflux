@@ -29,7 +29,6 @@
     ],
     "required": [
         "key",
-        "channel_id",
         "updates"
     ],
     "properties": {
