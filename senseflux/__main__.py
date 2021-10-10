@@ -1,5 +1,5 @@
 import click
-from influxdb import InfluxDBClient
+from influxdb_client import InfluxDBClient
 from waitress import serve
 import logging
 
