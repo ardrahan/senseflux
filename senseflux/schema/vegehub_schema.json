@@ -28,12 +28,12 @@
         }
     ],
     "required": [
-        "key",
+        "api_key",
         "updates"
     ],
     "properties": {
-        "key": {
-            "$id": "#/properties/key",
+        "api_key": {
+            "$id": "#/properties/api_key",
             "type": "string",
             "title": "VegeHub API Key",
             "description": "Plain text API Key",
