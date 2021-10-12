@@ -58,7 +58,7 @@ def create_app(influxdb_client: InfluxDBClient, influxdb_database: str, api_key:
                 v=r['v']
 
                 timestamp=int(veghub_time_to_timestamp(t) * 1e9)
-                name=field_map[slot]
+                name=field_map[str(slot)]
 
                 value = v
                 if name == 'SoilTemperature':
