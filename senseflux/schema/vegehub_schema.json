@@ -49,7 +49,6 @@
     ],
     "required": [
         "api_key",
-        "error_code",
         "sensors"
     ],
     "properties": {
