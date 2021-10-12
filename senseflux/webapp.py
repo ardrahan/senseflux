@@ -63,9 +63,9 @@ def create_app(influxdb_client: InfluxDBClient, influxdb_database: str, api_key:
                 value = v
                 if name == 'SoilTemperature':
                     value = voltage_to_temperature(v)
-                elif f == 'Battery':
+                elif name == 'Battery':
                     value = v
-                elif f == 'SoilMoisture':
+                elif name == 'SoilMoisture':
                     value = piecewise_linear(v)
                 else:
                     value = three_volt_range(v)
