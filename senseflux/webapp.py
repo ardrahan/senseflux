@@ -53,27 +53,26 @@ def create_app(influxdb_client: InfluxDBClient, influxdb_database: str, api_key:
         
         for s in data['sensors']:  
             slot = s['slot']
-                for r in s['samples']:
-                    t=r['t']
-                    v=r['v']
-       
-                    timestamp=int(veghub_time_to_timestamp(t) * 1e9)
-                    name=field_map[slot]
-            
+            for r in s['samples']:
+                t=r['t']
+                v=r['v']
+
+                timestamp=int(veghub_time_to_timestamp(t) * 1e9)
+                name=field_map[slot]
+
+                value = v
+                if name == 'SoilTemperature':
+                    value = voltage_to_temperature(v)
+                elif f == 'Battery':
                     value = v
-                    if name == 'SoilTemperature':
-                        value = voltage_to_temperature(v)
-                    elif f == 'Battery':
-                        value = v
-                    elif f == 'SoilMoisture':
-                        value = piecewise_linear(v)
-                    else:
-                        value = three_volt_range(v)
-         
-                    msg = f'{channel} {name}={value} {timestamp}'
-                    log.debug(f'Line:{msg}')
-                    lines.append(msg)
-   
+                elif f == 'SoilMoisture':
+                    value = piecewise_linear(v)
+                else:
+                    value = three_volt_range(v)
+
+                msg = f'{channel} {name}={value} {timestamp}'
+                log.debug(f'Line:{msg}')
+                lines.append(msg)   
 
         log.info('Sending Data to Influx')
         write_api = influxdb_client.write_api(write_options=SYNCHRONOUS)
