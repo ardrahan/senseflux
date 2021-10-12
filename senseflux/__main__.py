@@ -33,8 +33,8 @@ def main(port, api_key, influxdb_url, influxdb_org, influxdb_database, influxdb_
     log.info(f'Influx Org: {influxdb_org}')
 
     # Command line parameters override
-    fields = {'field1': field1, 'field2': field2, 'field3': field3,
-              'field4': field4, 'field5': field5}
+    fields = {'1': field1, '2': field2, '3': field3,
+              '4': field4, '5': field5}
 
     app = create_app(influxdb_client, influxdb_database, api_key, fields)
     log.info(f'Starting senseflux on port {port}')
