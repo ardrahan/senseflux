@@ -39,11 +39,11 @@ def fields_to_values(updates: [], field_map: Dict[str, str]) -> []:
         for k, v in fields.items():
             f = field_map[k]
 
-            if f == 'SoilTemperature':
+            if f.startswith('SoilTemperature'):
                 adjval = voltage_to_temperature(v)
-            elif f == 'Battery':
+            elif f =='Battery':
                 adjval = v
-            elif f == 'SoilMoisture':
+            elif f.startswith('SoilMoisture'):
                 adjval = piecewise_linear(v)
             else:
                 adjval = three_volt_range(v)
